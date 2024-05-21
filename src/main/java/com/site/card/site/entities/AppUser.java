@@ -5,7 +5,7 @@ import jakarta.persistence.*;
 
 @Entity
 @Table(name = "app_user")
-public class User {
+public class AppUser {
     @Id
     @GeneratedValue
     @Column(name = "id", nullable = false, updatable = false)
@@ -15,12 +15,12 @@ public class User {
     @Column(name = "password")
     private String password;
 
-    public User() {
+    public AppUser() {
         this.id = 0;
         this.password = "";
     }
     // todo: refacto pour sécuriser le password
-    public User(int id, String password) {
+    public AppUser(int id, String password) {
         this.id = id;
         this.password = password;
     }
