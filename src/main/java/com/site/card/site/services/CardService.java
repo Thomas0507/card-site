@@ -22,4 +22,7 @@ public class CardService {
     public List<Card> findCard(String name) {
         return cardRepository.findByName(name);
     }
+    public List<Card> findAll() {
+        return cardRepository.findAll();
+    }
 }

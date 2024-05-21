@@ -2,32 +2,33 @@ package com.site.card.site.entities;
 
 import com.site.card.site.Enums.Affinity;
 import com.site.card.site.Enums.Family;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
 
 @Entity
+@Table(name = "card")
 public class Card {
 
     @Id
     @GeneratedValue
+    @Column(name="id", nullable = false, updatable = false)
     private int id;
-    @Getter @Setter
+
+    @Column(name = "name")
     private String name;
-    @Getter @Setter
+    @Column(name = "description")
     private String description;
-    @Getter @Setter
+    @Column(name = "family")
     private Family family;
-    @Getter @Setter
+    @Column(name = "affinity")
     private Affinity affinity;
-    @Getter @Setter
+    @Column(name = "energy")
     private float energy;
-    @Getter @Setter
+    @Column(name = "hp")
     private float hp;
-    @Getter @Setter
+    @Column(name = "price")
     private float price;
 
     public Card() {
