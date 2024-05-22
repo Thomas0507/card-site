@@ -1,13 +1,11 @@
 package com.site.card.site.controllers;
 
+import com.site.card.site.dto.CardDTO;
 import com.site.card.site.entities.Card;
 import com.site.card.site.services.CardService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseStatus;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -19,8 +17,9 @@ public class CardController {
 
     @GetMapping(value = "/cards")
     @ResponseStatus(HttpStatus.OK)
-    public List<Card> cards() {
-        return cardService.findCard("test");
+    @CrossOrigin(origins = "http://localhost:5173")
+    public List<CardDTO> cards() {
+        return cardService.findAll();
     }
 
 

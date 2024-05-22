@@ -1,7 +1,5 @@
 package com.site.card.site.entities;
 
-import com.site.card.site.Enums.Affinity;
-import com.site.card.site.Enums.Family;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -14,20 +12,27 @@ public class Card {
     @Id
     @GeneratedValue
     @Column(name="id", nullable = false, updatable = false)
+    @Getter @Setter
     private int id;
-
+    @Getter @Setter
     @Column(name = "name")
     private String name;
+    @Getter @Setter
     @Column(name = "description")
     private String description;
+    @Getter @Setter
     @Column(name = "family")
-    private Family family;
+    private String family;
+    @Getter @Setter
     @Column(name = "affinity")
-    private Affinity affinity;
+    private String affinity;
+    @Getter @Setter
     @Column(name = "energy")
     private float energy;
+    @Getter @Setter
     @Column(name = "hp")
     private float hp;
+    @Getter @Setter
     @Column(name = "price")
     private float price;
 
@@ -35,8 +40,8 @@ public class Card {
         this.id = 0;
         this.name = "";
         this.description = "";
-        this.family = Family.NONE;
-        this.affinity = Affinity.NONE;
+        this.family = "";
+        this.affinity = "";
         this.energy = 0;
         this.hp = 0;
         this.price = 0;
@@ -45,8 +50,8 @@ public class Card {
         this.id = id;
         this.name = name;
         this.description = description;
-        this.affinity = Affinity.valueOf(affinity);
-        this.family = Family.valueOf(family);
+        this.affinity = affinity;
+        this.family = family;
         this.energy = energy;
         this.hp = hp;
         this.price = price;

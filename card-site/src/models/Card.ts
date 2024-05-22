@@ -6,9 +6,9 @@ export class Card {
     affinity: string;
     energy: number;
     hp: number;
-    img: string;
+    url: string;
 
-    constructor(id: number, name: string, description: string, price: number, affinity: string, energy: number, hp: number, img: string) {
+    constructor(id: number, name: string, description: string, price: number, affinity: string, energy: number, hp: number, url: string) {
         this.id = id;
         this.name = name;
         this.description = description;
@@ -16,7 +16,7 @@ export class Card {
         this.affinity = affinity;
         this.energy = energy;
         this.hp = hp;
-        this.img = img;
+        this.url = url;
     }
 
 }

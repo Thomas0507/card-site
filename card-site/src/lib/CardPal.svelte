@@ -1,11 +1,11 @@
 <script lang="ts">
 	import type { Card } from "../models/Card";
-
-    export let card:Card
+  export let card:Card
+  console.log(card.url)
 </script>
 
-<div class="card w-96 bg-base-100 shadow-xl">
-    <figure><img src={card.img} alt="Shoes" /></figure>
+<div class="card w-96 bg-base-100 shadow-xl card-wrapper">
+    <figure><img src={card.url} alt="img" /></figure>
     <div class="card-body">
       <h2 class="card-title">{card.name}</h2>
       <p>{card.description}</p>
@@ -14,3 +14,11 @@
       </div>
     </div>
   </div>
+
+<style>
+  .card-wrapper {
+    border:solid;
+    padding: 1em;
+    
+  }
+</style>
