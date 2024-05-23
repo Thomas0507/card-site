@@ -16,12 +16,14 @@ onMount(async ()=> {
 <Header/>
 
 <div class="card-wrapper">
+    <div class="gallerie">
     {#each cardsMount as item}
         <CardPal card={item}/>    
         {:else}
         <!-- si 0 cartes found -->
         <span class="loading loading-spinner loading-lg"></span>
-    {/each} 
+    {/each}
+    </div> 
 </div>
 
 <style>
@@ -32,6 +34,13 @@ onMount(async ()=> {
         flex-wrap: wrap;
         margin:1em;
         height: 100%;
+    }
+    .gallerie {
+        display: flex;
+        height: fit-content;
+        gap: 2em;
+        flex-wrap: wrap;
+        justify-content: center;
     }
 
 </style>
