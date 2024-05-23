@@ -4,6 +4,7 @@
 	import { onMount } from "svelte";
 	import { Card } from "../../models/Card";
 
+
     let cardsMount:Card[] = [];
 onMount(async ()=> {
     const res = await fetch("http://localhost:8080/cards-api/v1/cards");
@@ -30,5 +31,7 @@ onMount(async ()=> {
         justify-content: center;
         flex-wrap: wrap;
         margin:1em;
+        height: 100%;
     }
+
 </style>
