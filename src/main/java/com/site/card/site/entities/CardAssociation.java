@@ -23,4 +23,14 @@ public class CardAssociation {
     @ManyToOne
     @JoinColumn(name="cardId", updatable = false, insertable = false)
     private Card card;
+
+    public CardAssociation() {
+
+    }
+
+    public CardAssociation(long appUserId, long cardId, int quantity) {
+        this.appUserId = appUserId;
+        this.cardId = cardId;
+        this.quantity = quantity;
+    }
 }
