@@ -1,7 +1,7 @@
 <script lang="ts">
 	import type { Card } from "../models/Card";
+  // export permet de définir l'attribut depuis un composant parent.
   export let card:Card
-  console.log(card.url)
 </script>
 
 <div class="card w-96 bg-base-100 shadow-xl card-wrapper">

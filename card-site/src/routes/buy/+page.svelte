@@ -6,6 +6,7 @@
 
 
     let cardsMount:Card[] = [];
+    // function lifecycle => s'execute quand le DOM a chargé.
 onMount(async ()=> {
     const res = await fetch("http://localhost:8080/cards-api/v1/cards");
     cardsMount = await res.json();

@@ -13,6 +13,7 @@
         <li>
           <details>
             <summary>
+              <!-- Icon not working -->
                 <i data-feather="circle"></i> User
             </summary>
             <ul class="p-2 bg-base-100 rounded-t-none">
