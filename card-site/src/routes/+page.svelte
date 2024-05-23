@@ -7,7 +7,7 @@ import Header from "$lib/Header.svelte";
 
 <div class="card-wrapper">
     <div class="card">
-        <Card title="Buy" description = "Buy cards" buttonText = "Buy now!"/>
+        <Card title="Buy" description = "Buy cards" buttonText = "Buy now!" redirectLink="buy"/>
     </div>
     <div class="card">
         <Card title="Market" description = "Sell cards" buttonText = "Sell now!"/>    

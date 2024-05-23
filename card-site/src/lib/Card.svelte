@@ -1,7 +1,14 @@
 <script lang="ts">
-    export let title: String = "Card title";
-    export let description: String = "Card description";
-    export let buttonText: String = "Button Text"
+	import { goto } from "$app/navigation";
+
+    export let title: string = "Card title";
+    export let description: string = "Card description";
+    export let buttonText: string = "Button Text"
+    export let redirectLink: string = "";
+
+    function redirectTo(url: string) {
+      goto("/"+url);
+    }
 </script>
 
 
@@ -10,7 +17,7 @@
       <h2 class="card-title">{title}</h2>
       <p>{description}</p>
       <div class="card-actions justify-end">
-        <button class="btn">{buttonText}</button>
+        <button class="btn" on:click={() =>redirectTo(redirectLink)}>{buttonText}</button>
       </div>
     </div>
   </div>

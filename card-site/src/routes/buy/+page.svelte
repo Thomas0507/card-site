@@ -4,33 +4,23 @@
 	import { onMount } from "svelte";
 	import { Card } from "../../models/Card";
 
-
-async function getCards() {
+    let cardsMount:Card[] = [];
+onMount(async ()=> {
     const res = await fetch("http://localhost:8080/cards-api/v1/cards");
-    const data = await res.json();
-    if (res.ok) {
-        return data;
-    }
-    else
-        throw new Error(data);
-}
+    cardsMount = await res.json();
+    })
+
 
 </script>
 <Header/>
 
-
-    {#await getCards()}
-        <p>loading...</p>
-    {:then items}
-    <div class="card-wrapper">
-        {#each items as item}
-            <CardPal card={item}/>    
-         {/each} 
-    </div>
-        
-        {:catch error}
-        <p>{error.message}</p>
-    {/await}
+<div class="card-wrapper">
+    {#each cardsMount as item}
+        <CardPal card={item}/>    
+        {:else}
+            <p>loading...</p>
+    {/each} 
+</div>
 
 <style>
     .card-wrapper {
