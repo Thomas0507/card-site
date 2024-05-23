@@ -4,37 +4,26 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.ArrayList;
+import java.util.List;
 
+@Getter
+@Setter
 @Entity
-@Table(name = "card")
 public class Card {
 
     @Id
-    @GeneratedValue
-    @Column(name="id", nullable = false, updatable = false)
-    @Getter @Setter
-    private int id;
-    @Getter @Setter
-    @Column(name = "name")
+    private long id;
     private String name;
-    @Getter @Setter
-    @Column(name = "description")
     private String description;
-    @Getter @Setter
-    @Column(name = "family")
     private String family;
-    @Getter @Setter
-    @Column(name = "affinity")
     private String affinity;
-    @Getter @Setter
-    @Column(name = "energy")
     private float energy;
-    @Getter @Setter
-    @Column(name = "hp")
     private float hp;
-    @Getter @Setter
-    @Column(name = "price")
     private float price;
+
+    @OneToMany(mappedBy = "card")
+    private List<CardAssociation> appUsers;
 
     public Card() {
         this.id = 0;
@@ -55,5 +44,19 @@ public class Card {
         this.energy = energy;
         this.hp = hp;
         this.price = price;
+    }
+
+    public void addUser(AppUser appUser, int quantity) {
+        CardAssociation cardAssociation = new CardAssociation();
+        cardAssociation.setAppUser(appUser);
+        cardAssociation.setCard(this);
+        cardAssociation.setAppUserId(appUser.getId());
+        cardAssociation.setCardId(this.getId());
+        cardAssociation.setQuantity(quantity);
+        if (this.appUsers == null) {
+            this.appUsers = new ArrayList<>();
+        }
+        this.appUsers.add(cardAssociation);
+        appUser.getCards().add(cardAssociation);
     }
 }

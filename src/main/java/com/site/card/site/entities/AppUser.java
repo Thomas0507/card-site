@@ -1,19 +1,21 @@
 package com.site.card.site.entities;
 
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
 
+import java.util.List;
 
+@Getter @Setter
 @Entity
-@Table(name = "app_user")
 public class AppUser {
     @Id
-    @GeneratedValue
-    @Column(name = "id", nullable = false, updatable = false)
-    private int id;
-    @Column(name = "name")
+    private long id;
     String name;
-    @Column(name = "password")
     private String password;
+
+    @OneToMany(mappedBy = "appUserId")
+    private List<CardAssociation> cards;
 
     public AppUser() {
         this.id = 0;

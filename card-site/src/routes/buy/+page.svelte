@@ -18,7 +18,8 @@ onMount(async ()=> {
     {#each cardsMount as item}
         <CardPal card={item}/>    
         {:else}
-            <p>loading...</p>
+        <!-- si 0 cartes found -->
+        <span class="loading loading-spinner loading-lg"></span>
     {/each} 
 </div>
 
