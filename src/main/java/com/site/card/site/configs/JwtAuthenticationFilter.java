@@ -43,7 +43,13 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             @NonNull
             FilterChain filterChain) throws ServletException, IOException {
             final String authHeader = request.getHeader("Authorization");
-            try {
+            String path = request.getRequestURI();
+            if (path.startsWith("/auth/")) {
+                filterChain.doFilter(request, response);
+                return;
+            }
+
+        try {
                 final String jwt = authHeader.substring(7);
                 final String username = jwtService.extractUsername(jwt);
 
@@ -61,7 +67,8 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
                     }
                 }
                 filterChain.doFilter(request, response);
-            } catch (Exception exception) {
+            }
+            catch (Exception exception) {
                 // authen header is empty
                 System.out.println("[JwtAuthenticationFilter]:\tAuthenticate Header is empty or incorrect");
                 response.setStatus(HttpStatus.UNAUTHORIZED.value());
