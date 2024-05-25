@@ -5,6 +5,7 @@ import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import org.springframework.http.HttpStatus;
 import org.springframework.lang.NonNull;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -42,10 +43,6 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             @NonNull
             FilterChain filterChain) throws ServletException, IOException {
             final String authHeader = request.getHeader("Authorization");
-            if (authHeader == null || !authHeader.startsWith("Bearer ")) {
-                filterChain.doFilter(request, response);
-                return;
-            }
             try {
                 final String jwt = authHeader.substring(7);
                 final String username = jwtService.extractUsername(jwt);
@@ -65,6 +62,10 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
                 }
                 filterChain.doFilter(request, response);
             } catch (Exception exception) {
+                // authen header is empty
+                System.out.println("[JwtAuthenticationFilter]:\tAuthenticate Header is empty or incorrect");
+                response.setStatus(HttpStatus.UNAUTHORIZED.value());
+                response.getWriter().write("Authenticate Header is empty or incorrect");
                 handlerExceptionResolver.resolveException(request, response, null, exception);
             }
     }
