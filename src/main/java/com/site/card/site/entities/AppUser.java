@@ -3,27 +3,70 @@ package com.site.card.site.entities;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.annotations.CreationTimestamp;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
+import java.util.Collection;
+import java.util.Date;
 import java.util.List;
 
 @Getter @Setter
 @Entity
-public class AppUser {
+public class AppUser implements UserDetails {
     @Id
+    @Column(nullable = false)
     private long id;
-    String name;
+
+    @Column(unique = true, length = 100, nullable = false)
+    private String userName;
+    @Column(nullable = false)
     private String password;
 
     @OneToMany(mappedBy = "appUserId")
     private List<CardAssociation> cards;
+
+    @CreationTimestamp
+    @Column(updatable = false)
+    private Date createdAt;
 
     public AppUser() {
         this.id = 0;
         this.password = "";
     }
     // todo: refacto pour sécuriser le password
-    public AppUser(int id, String password) {
-        this.id = id;
+    public AppUser(String username, String password) {
+        this.userName = username;
         this.password = password;
+    }
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return List.of();
+    }
+
+    @Override
+    public String getUsername() {
+        return userName;
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return true;
     }
 }
