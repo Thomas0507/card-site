@@ -7,6 +7,8 @@
 
 	setContext('buy', { buyCard });
 
+	let successfulTransaction: boolean = false;
+
 	function sortById(cardArray: Card[]) {
 		return cardArray.sort((a, b) => a.palId - b.palId);
 	}
@@ -21,6 +23,23 @@
 			body: JSON.stringify(card)
 		});
 		document.getElementById('my_modal_1').showModal();
+
+		switch (result.status) {
+			case 401:
+				sessionStorage.clear();
+				redirectToUrl('/');
+				break;
+			case 200:
+				// OK
+				successfulTransaction = true;
+				break;
+			case 500:
+				// NOT OK
+				successfulTransaction = false;
+				break;
+			default:
+				break;
+		}
 	}
 
 	let cardsSorted: Card[] = [];
@@ -58,15 +77,28 @@
 </div>
 
 <dialog id="my_modal_1" class="modal">
-	<div class="modal-box">
-		<h3 class="font-bold text-lg">Thank you!</h3>
-		<p class="py-4">Congratulation on your purchase! This Pal is now in your profile.</p>
-		<div class="modal-action">
-			<form method="dialog">
-				<button class="btn">Close</button>
-			</form>
+	{#if !successfulTransaction}
+		<!-- not enough cash -->
+		<div class="modal-box">
+			<h3 class="font-bold text-lg">Sorry!</h3>
+			<p class="py-4">You're too poor.</p>
+			<div class="modal-action">
+				<form method="dialog">
+					<button class="btn">Close</button>
+				</form>
+			</div>
 		</div>
-	</div>
+	{:else}
+		<div class="modal-box">
+			<h3 class="font-bold text-lg">Thank you!</h3>
+			<p class="py-4">Congratulation on your purchase! This Pal is now in your profile.</p>
+			<div class="modal-action">
+				<form method="dialog">
+					<button class="btn">Close</button>
+				</form>
+			</div>
+		</div>
+	{/if}
 </dialog>
 
 <style>
