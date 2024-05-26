@@ -20,6 +20,7 @@ public class CardEntityToCardDTOImpl implements CardEntityToCardDTO {
                 card.getEnergy(),
                 card.getHp(),
                 card.getPrice(),
+                card.getRarity(),
                 card.getUrl());
     }
 }
