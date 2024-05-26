@@ -25,6 +25,7 @@ public class Card {
     private float energy;
     private float hp;
     private float price;
+    private String url;
 
     @OneToMany(mappedBy = "card")
     private List<CardAssociation> appUsers;
@@ -39,7 +40,7 @@ public class Card {
         this.hp = 0;
         this.price = 0;
     }
-    public Card(int id, String name, String description, String affinity, String family, float energy, float hp, float price) {
+    public Card(int id, String name, String description, String affinity, String family, float energy, float hp, float price, String url) {
         this.id = id;
         this.name = name;
         this.description = description;
@@ -48,6 +49,7 @@ public class Card {
         this.energy = energy;
         this.hp = hp;
         this.price = price;
+        this.url = url;
     }
 
     public void addUser(AppUser appUser, int quantity) {
