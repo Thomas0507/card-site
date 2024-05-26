@@ -13,6 +13,10 @@ import java.util.List;
 public class Card {
 
     @Id
+    @GeneratedValue(
+            strategy= GenerationType.AUTO,
+            generator="native"
+    )
     private long id;
     private String name;
     private String description;

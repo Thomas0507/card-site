@@ -16,6 +16,10 @@ import java.util.List;
 public class AppUser implements UserDetails {
     @Id
     @Column(nullable = false)
+    @GeneratedValue(
+            strategy= GenerationType.AUTO,
+            generator="native"
+    )
     private long id;
 
     @Column(unique = true, length = 100, nullable = false)
