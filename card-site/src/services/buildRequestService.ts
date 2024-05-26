@@ -40,8 +40,11 @@ export async function loginRequest(login: Object, url: string, method: string) {
 		body: JSON.stringify(login)
 	});
 	const data = await result.json();
-	sessionStorage.setItem('token', data.token);
-	redirectToUrl('/profile');
+	if (result.status === 403) {
+		// invalid login
+	} else {
+		sessionStorage.setItem('token', data.token);
+	}
 }
 
 export async function signUpRequest(login: Object, url: string, method: string) {
@@ -50,5 +53,9 @@ export async function signUpRequest(login: Object, url: string, method: string) 
 		headers: { 'Content-Type': 'application/json' },
 		body: JSON.stringify(login)
 	});
-	redirectToUrl('/');
+	if (result.status === 403) {
+		// invalid login
+	} else {
+		redirectToUrl('/');
+	}
 }

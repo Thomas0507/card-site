@@ -2,10 +2,11 @@
 	import { UserLogin } from './../models/UserLogin';
 	import { loginRequest } from '../services/buildRequestService';
 	import { signUpRequest } from '../services/buildRequestService';
+	import { redirectToUrl } from '../services/redirectService';
 
-	export let postUrl: string = "";
+	export let postUrl: string = '';
 	export let isSignUp: boolean = false;
-
+	let errorResponse: boolean = false;
 	const handleSubmit = (e) => {
 		const formData = new FormData(e.target);
 		const userLogin: UserLogin = new UserLogin(formData.get('username'), formData.get('password'));
@@ -19,13 +20,31 @@
 			// new account
 			signUpRequest(userLogin, postUrl, 'POST');
 		} else {
-			loginRequest(userLogin, postUrl, 'POST');
+			loginRequest(userLogin, postUrl, 'POST');		
 		}
 	}
 	function isFormDirty(): boolean {
 		return false;
 	}
 </script>
+
+{#if errorResponse}
+	<div role="alert" class="alert alert-error">
+		<svg
+			xmlns="http://www.w3.org/2000/svg"
+			class="stroke-current shrink-0 h-6 w-6"
+			fill="none"
+			viewBox="0 0 24 24"
+			><path
+				stroke-linecap="round"
+				stroke-linejoin="round"
+				stroke-width="2"
+				d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z"
+			/></svg
+		>
+		<span>Error! Incorrect user informations</span>
+	</div>
+{/if}
 
 <div class="main-component">
 	<form on:submit|preventDefault={handleSubmit}>

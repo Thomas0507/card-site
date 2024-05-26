@@ -17,10 +17,8 @@
 			}
 		});
 		const data = await result.json();
-		// console.log(data);
 		userCards = data.cards;
 		username = data.username;
-
 	});
 </script>
 
@@ -34,6 +32,7 @@
 			<CardPalInfo card={card.card} quantity={card.quantity} />
 		{:else}
 			<!-- si 0 cartes found -->
+			<span>No cards found...</span>
 			<span class="loading loading-spinner loading-lg"></span>
 		{/each}
 	</div>
