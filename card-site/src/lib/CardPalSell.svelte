@@ -14,6 +14,9 @@
 		</h2>
 
 		<p>{card.description}</p>
+		<div class="card-actions justify-end">
+			<button class="btn btn-primary" on:click={() => buyCard(card)}>Sell</button>
+		</div>
 	</div>
 </div>
 

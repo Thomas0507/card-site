@@ -25,6 +25,7 @@ export function buildGetRequest(url: string, jwtoken: string): void {
 	xhr.onload = () => {
 		if (xhr.readyState == 4 && xhr.status == 201) {
 			console.log(JSON.parse(xhr.responseText));
+			return xhr.responseText;
 		} else {
 			console.log(`Error: ${xhr.status}`);
 		}

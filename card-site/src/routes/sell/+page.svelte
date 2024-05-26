@@ -1,6 +1,7 @@
 <!-- display user Info -->
 
 <script lang="ts">
+	import CardPalSell from './../../lib/CardPalSell.svelte';
 	import CardPalInfo from './../../lib/CardPalInfo.svelte';
 	import Header from './../../lib/Header.svelte';
 	import { onMount } from 'svelte';
@@ -33,7 +34,7 @@
 <div class="card-wrapper">
 	<div class="gallerie">
 		{#each userCards as card}
-			<CardPalInfo card={card.card} quantity={card.quantity} />
+			<CardPalSell card={card.card} quantity={card.quantity} />
 		{:else}
 			<!-- si 0 cartes found -->
 			<span class="loading loading-spinner loading-lg"></span>

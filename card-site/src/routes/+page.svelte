@@ -28,13 +28,29 @@
 
 <div class="card-wrapper">
 	<div class="card">
-		<Card title="Buy" description="Buy cards" buttonText="Buy now!" redirectLink="buy" />
+		<Card
+			title="Buy"
+			description="Buy cards"
+			buttonText="Buy now!"
+			redirectLink="buy"
+			disabled={!isUserConnected()}
+		/>
 	</div>
 	<div class="card">
-		<Card title="Market" description="Sell cards" buttonText="Sell now!" />
+		<Card
+			title="Market"
+			description="Sell cards"
+			buttonText="Sell now!"
+			disabled={!isUserConnected()}
+		/>
 	</div>
 	<div class="card">
-		<Card title="Play" description="Play with cards" buttonText="Play now!" />
+		<Card
+			title="Play"
+			description="Play with cards"
+			buttonText="Play now!"
+			disabled={!isUserConnected()}
+		/>
 	</div>
 </div>
 
