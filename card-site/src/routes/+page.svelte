@@ -41,6 +41,7 @@
 			title="Market"
 			description="Sell cards"
 			buttonText="Sell now!"
+			redirectLink="sell"
 			disabled={!isUserConnected()}
 		/>
 	</div>

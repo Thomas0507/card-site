@@ -5,6 +5,7 @@
 	import CardPalInfo from './../../lib/CardPalInfo.svelte';
 	import Header from './../../lib/Header.svelte';
 	import { onMount } from 'svelte';
+	import { redirectToUrl } from '../../services/redirectService';
 	let username: string = '';
 	let userCards: any[] = [];
 
@@ -17,8 +18,14 @@
 				authorization: `Bearer ${token}`
 			}
 		});
+		if (result.status === 401) {
+			sessionStorage.clear();
+			redirectToUrl('/');
+			return;
+		}
+
 		const data = await result.json();
-		// console.log(data);
+
 		userCards = data.cards;
 		username = data.username;
 		userCards.forEach((card) => {

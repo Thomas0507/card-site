@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { redirectToUrl } from '../services/redirectService';
-	import { isUserConnected } from '../services/userService';
+	import { isUserConnected, logOut } from '../services/userService';
 </script>
 
 <div class="navbar bg-base-100 header-wrapper">
@@ -15,12 +15,13 @@
 						<!-- Icon not working -->
 						<i data-feather="circle"></i> User
 					</summary>
-					<ul class="p-2 bg-base-100 rounded-t-none">
+					<ul class="p-2 bg-base-100 rounded-t-none buttons-sidebar">
 						{#if isUserConnected()}
 							<li><p on:click={() => redirectToUrl('/profile')}>Profile</p></li>
+							<li><p on:click={() => logOut()}>Log Out</p></li>
 						{:else}
-							<li><p on:click={() => redirectToUrl('login')}>Sign in</p></li>
-							<li><p on:click={() => redirectToUrl('signup')}>Register</p></li>
+							<li><p on:click={() => redirectToUrl('/login')}>Sign in</p></li>
+							<li><p on:click={() => redirectToUrl('/register')}>Register</p></li>
 						{/if}
 					</ul>
 				</details>
@@ -38,5 +39,9 @@
 
 	.user-button-wrapper {
 		margin-right: 1em;
+	}
+
+	.buttons-sidebar {
+		z-index: 999;
 	}
 </style>
