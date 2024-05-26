@@ -27,6 +27,9 @@ public class AppUser implements UserDetails {
     @Column(nullable = false)
     private String password;
 
+    @Column(nullable = false)
+    private float money;
+
     @OneToMany(mappedBy = "appUserId")
     private List<CardAssociation> cards;
 
@@ -37,11 +40,19 @@ public class AppUser implements UserDetails {
     public AppUser() {
         this.id = 0;
         this.password = "";
+        this.money = 4000;
     }
     // todo: refacto pour sécuriser le password
     public AppUser(String username, String password) {
         this.userName = username;
         this.password = password;
+        this.money = 4000;
+    }
+
+    public AppUser(String username, String password, float money) {
+        this.userName = username;
+        this.password = password;
+        this.money = 4000;
     }
 
     @Override

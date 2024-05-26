@@ -8,6 +8,6 @@ import java.util.List;
 @Getter @Setter
 public class AppUserDto {
     private String username;
-    private int money;
+    private float money;
     private List<CardAssociationDTO> cards;
 }

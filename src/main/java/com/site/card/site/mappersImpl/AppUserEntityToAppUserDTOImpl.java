@@ -18,7 +18,7 @@ public class AppUserEntityToAppUserDTOImpl implements AppUserEntityToAppUserDTO 
         AppUserDto appUserDto = new AppUserDto();
 
         appUserDto.setUsername(appUser.getUsername());
-        appUserDto.setMoney(100);
+        appUserDto.setMoney(appUser.getMoney());
         appUserDto.setCards(new ArrayList<>());
         return appUserDto;
     }

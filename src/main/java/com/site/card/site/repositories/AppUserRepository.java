@@ -9,6 +9,7 @@ import java.util.Optional;
 public interface AppUserRepository extends CrudRepository<AppUser, Integer> {
 
     Optional<AppUser> findByUserName(String username);
+    Optional<AppUser> findById(long id);
 
 //     List<AppUser> findAll();
 }
