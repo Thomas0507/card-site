@@ -18,6 +18,7 @@ public class Card {
             generator="native"
     )
     private long id;
+    private long palId;
     private String name;
     private String description;
     private String family;
@@ -41,7 +42,7 @@ public class Card {
         this.price = 0;
     }
     public Card(int id, String name, String description, String affinity, String family, float energy, float hp, float price, String url) {
-        this.id = id;
+        this.palId = id;
         this.name = name;
         this.description = description;
         this.affinity = affinity;
