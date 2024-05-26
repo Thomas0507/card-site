@@ -79,7 +79,7 @@
 			}
 			count += 1;
 		});
-		userCards.splice(0, 1);
+		userCards = userCards;
 	}
 </script>
 
