@@ -10,6 +10,7 @@
 	import { invalidateAll } from '$app/navigation';
 
 	let username: string = '';
+	let money: number = 0;
 	let userCards: any[] = [];
 
 	let soldCard: any = null;
@@ -62,6 +63,7 @@
 		const data = await result.json();
 		userCards = data.cards;
 		username = data.username;
+		money = data.money;
 	});
 
 	function removeOneCard(card: Card) {
@@ -80,11 +82,15 @@
 			count += 1;
 		});
 		userCards = userCards;
+		console.log(money);
+		console.log(card.price);
+		money += card.price;
 	}
 </script>
 
 <Header />
 <div class="flex flex-col w-full border-opacity-50">
+	<div class="divider">{username}'s sold : {money}$</div>
 	<div class="divider">{username}'s cards</div>
 </div>
 <div class="card-wrapper">

@@ -21,51 +21,35 @@ public class TransactionService {
 
     @Autowired
     CardAppUserRepository cardAppUserRepository;
-    @Autowired
-    AppUserRepository appUserRepository;
-    @Autowired
-    CardRepository cardRepository;
 
-    public CardDTO buyCard(String appUserId, String cardId) {
-        Optional<CardAssociation> cardAssociation = findCardAssociation(Long.parseLong(appUserId), Long.parseLong(cardId));
-        // check if already existing
-        Optional<AppUser> user = appUserRepository.findById(Long.parseLong(appUserId));
-        Optional<Card> card = cardRepository.findById(Integer.parseInt(cardId));
-
-        if(user.isPresent() && card.isPresent()){
-            float userMoney = user.get().getMoney();
-            float cardPrice = card.get().getPrice();
-            if(userMoney >= cardPrice){
-                user.get().setMoney(userMoney - cardPrice);
-                if (cardAssociation.isPresent()) {
-                    CardAssociation cardAsso = cardAssociation.get();
-                    cardAppUserRepository.save(new CardAssociation(cardAsso.getAppUserId(), cardAsso.getCardId(), cardAsso.getQuantity() + 1));
-                } else {
-                    cardAppUserRepository.save(new CardAssociation(Long.parseLong(appUserId), Long.parseLong(cardId), 1));
-                }
-                appUserRepository.save(user.get());
+    public CardAssociation buyCard(AppUser appUser, Card card) {
+        Optional<CardAssociation> cardAssociation = findCardAssociation(appUser.getId(), card.getId());
+        float userMoney = appUser.getMoney();
+        float cardPrice = card.getPrice();
+        if(userMoney >= cardPrice){
+            appUser.setMoney(userMoney - cardPrice);
+            if (cardAssociation.isPresent()) {
+                CardAssociation cardAsso = cardAssociation.get();
+                return cardAppUserRepository.save(new CardAssociation(cardAsso.getAppUserId(), cardAsso.getCardId(), cardAsso.getQuantity() + 1));
+            } else {
+                return cardAppUserRepository.save(new CardAssociation(appUser.getId(), card.getId(), 1));
             }
         }
-
         return null;
     }
 
-    public CardDTO sellCard(String appUserId, String cardId) {
-        Optional<CardAssociation> cardAssociation = findCardAssociation(Long.parseLong(appUserId), Long.parseLong(cardId));
-        Optional<AppUser> user = appUserRepository.findById(Long.parseLong(appUserId));
-        Optional<Card> card = cardRepository.findById(Integer.parseInt(cardId));
-        if(user.isPresent() && card.isPresent()){
-            float userMoney = user.get().getMoney();
-            float cardPrice = card.get().getPrice();
-            user.get().setMoney(userMoney + cardPrice);
-            if (cardAssociation.isPresent()) {
-                CardAssociation cardAsso = cardAssociation.get();
-                if (cardAsso.getQuantity() > 1) {
-                    cardAppUserRepository.save(new CardAssociation(cardAsso.getAppUserId(), cardAsso.getCardId(), cardAsso.getQuantity() - 1));
-                } else {
-                    cardAppUserRepository.delete(cardAsso);
-                }
-                appUserRepository.save(user.get());
+    public CardAssociation sellCard(AppUser appUser, Card card) {
+        Optional<CardAssociation> cardAssociation = findCardAssociation(appUser.getId(), card.getId());
+        float userMoney = appUser.getMoney();
+        float cardPrice = card.getPrice();
+        appUser.setMoney(userMoney + cardPrice);
+        if (cardAssociation.isPresent()) {
+            CardAssociation cardAsso = cardAssociation.get();
+            if (cardAsso.getQuantity() > 1) {
+                return cardAppUserRepository.save(new CardAssociation(cardAsso.getAppUserId(), cardAsso.getCardId(), cardAsso.getQuantity() - 1));
+            } else {
+                cardAppUserRepository.delete(cardAsso);
+                return  cardAsso;
             }
         }
         return null;

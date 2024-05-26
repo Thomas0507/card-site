@@ -8,7 +8,8 @@
 	setContext('buy', { buyCard });
 
 	let successfulTransaction: boolean = false;
-
+	let username: string = '';
+	let money: number = 0;
 	function sortById(cardArray: Card[]) {
 		return cardArray.sort((a, b) => a.palId - b.palId);
 	}
@@ -31,6 +32,7 @@
 				break;
 			case 200:
 				// OK
+				await getUserInfos();
 				successfulTransaction = true;
 				break;
 			case 500:
@@ -40,11 +42,13 @@
 			default:
 				break;
 		}
+		money -= card.price;
 	}
 
 	let cardsSorted: Card[] = [];
 
 	onMount(async () => {
+		let userInfos = await getUserInfos();
 		const token = sessionStorage.getItem('token');
 		const result = await fetch('http://localhost:8080/cards-api/v1/cards', {
 			method: 'GET',
@@ -60,11 +64,34 @@
 			const data = await result.json();
 			cardsSorted = data;
 		}
+		
 	});
+
+	async function getUserInfos() {
+		const token = sessionStorage.getItem('token');
+		const result = await fetch('http://localhost:8080/user/infos', {
+			method: 'GET',
+			headers: {
+				'Content-Type': 'application/json',
+				authorization: `Bearer ${token}`
+			}
+		});
+		if (result.status === 401) {
+			sessionStorage.clear();
+			redirectToUrl('/');
+			return;
+		}
+		const data = await result.json();
+		username = data.username;
+		money = data.money;
+		return data;
+	}
 </script>
 
 <Header />
-
+<div class="flex flex-col w-full border-opacity-50">
+	<div class="divider">{username}'s sold : {money}$</div>
+</div>
 <div class="card-wrapper">
 	<div class="gallerie">
 		{#each cardsSorted as item}
