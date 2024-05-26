@@ -44,7 +44,12 @@ public class TransactionController {
             Optional<Card> cardObj = cardService.getCard(Integer.parseInt(cardJson.get("id").getAsString()));
             if (user.isPresent() && cardObj.isPresent()) {
                 CardAssociation resCard = transactionService.buyCard(user.get(), cardObj.get());
-                appUserService.addUser(user.get());
+                if(resCard != null){
+                    appUserService.addUser(user.get());
+                }
+                else {
+                    return ResponseEntity.internalServerError().build();
+                }
                 return ResponseEntity.ok(resCard);
             }
         }
@@ -64,6 +69,8 @@ public class TransactionController {
                 CardAssociation resCard = transactionService.sellCard(user.get(), cardObj.get());
                 if(resCard != null){
                     appUserService.addUser(user.get());
+                }else {
+                    return ResponseEntity.internalServerError().build();
                 }
                 return ResponseEntity.ok(resCard);
             }

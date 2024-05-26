@@ -42,8 +42,8 @@ public class TransactionService {
         Optional<CardAssociation> cardAssociation = findCardAssociation(appUser.getId(), card.getId());
         float userMoney = appUser.getMoney();
         float cardPrice = card.getPrice();
-        appUser.setMoney(userMoney + cardPrice);
         if (cardAssociation.isPresent()) {
+            appUser.setMoney(userMoney + cardPrice);
             CardAssociation cardAsso = cardAssociation.get();
             if (cardAsso.getQuantity() > 1) {
                 return cardAppUserRepository.save(new CardAssociation(cardAsso.getAppUserId(), cardAsso.getCardId(), cardAsso.getQuantity() - 1));

@@ -82,8 +82,6 @@
 			count += 1;
 		});
 		userCards = userCards;
-		console.log(money);
-		console.log(card.price);
 		money += card.price;
 	}
 </script>
