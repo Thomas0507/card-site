@@ -1,4 +1,8 @@
 <script>
-  import "tailwindcss/tailwind.css";
+	import { browser } from '$app/environment';
+	import 'tailwindcss/tailwind.css';
 </script>
-<slot />
+
+{#if browser}
+	<slot />
+{/if}
