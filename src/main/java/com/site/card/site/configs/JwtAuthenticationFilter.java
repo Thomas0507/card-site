@@ -1,6 +1,7 @@
 package com.site.card.site.configs;
 
 import com.site.card.site.services.JwtService;
+import io.jsonwebtoken.ExpiredJwtException;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -67,7 +68,12 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
                     }
                 }
                 filterChain.doFilter(request, response);
-            }
+            } catch (ExpiredJwtException expiredJwtException) {
+                System.out.println("Token has expired");
+                response.setStatus(HttpStatus.UNAUTHORIZED.value());
+                response.getWriter().write("Token has expired");
+                handlerExceptionResolver.resolveException(request, response, null, expiredJwtException);
+        }
             catch (Exception exception) {
                 // authen header is empty
                 System.out.println("[JwtAuthenticationFilter]:\tAuthenticate Header is empty or incorrect");

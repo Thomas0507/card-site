@@ -1,5 +1,7 @@
 import { UserLogin } from '../models/UserLogin';
 
+import { redirectToUrl } from '../services/redirectService';
+
 export function buildPostRequest(object: Object, url: string, jwtoken: string): void {
 	const xhr = new XMLHttpRequest();
 	xhr.open('POST', url);
@@ -14,4 +16,29 @@ export function buildPostRequest(object: Object, url: string, jwtoken: string): 
 		}
 	};
 	xhr.send(body);
+}
+
+export function buildGetRequest(url: string, jwtoken: string): void {
+	const xhr = new XMLHttpRequest();
+	xhr.open('GET', url);
+	xhr.setRequestHeader('Authorization', 'Bearer ' + jwtoken);
+	xhr.onload = () => {
+		if (xhr.readyState == 4 && xhr.status == 201) {
+			console.log(JSON.parse(xhr.responseText));
+		} else {
+			console.log(`Error: ${xhr.status}`);
+		}
+	};
+	xhr.send(null);
+}
+
+export async function loginRequest(login: Object, url: string, method: string) {
+	const result = await fetch(url, {
+		method: method,
+		headers: { 'Content-Type': 'application/json' },
+		body: JSON.stringify(login)
+	});
+	const data = await result.json();
+	sessionStorage.setItem('token', data.token);
+	redirectToUrl('/profile');
 }

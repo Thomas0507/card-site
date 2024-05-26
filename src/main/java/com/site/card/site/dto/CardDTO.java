@@ -32,5 +32,6 @@ public class CardDTO {
         this.energy = energy;
         this.hp = hp;
         this.price = price;
+        this.url = "http://localhost:8080/" + name + ".jpg";
     }
 }

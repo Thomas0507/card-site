@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { UserLogin } from './../models/UserLogin';
-	import { buildPostRequest } from '../services/buildRequestService';
+	import { loginRequest } from '../services/buildRequestService';
 
 	export let postUrl: string = '';
 
@@ -13,7 +13,7 @@
 	export let username: string = '';
 
 	function sendData(userLogin: UserLogin) {
-		buildPostRequest(userLogin, postUrl, '');
+		loginRequest(userLogin, postUrl, 'POST');
 	}
 	function isFormDirty(): boolean {
 		return false;

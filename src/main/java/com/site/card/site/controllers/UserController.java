@@ -1,5 +1,6 @@
 package com.site.card.site.controllers;
 
+import com.site.card.site.dto.AppUserDto;
 import com.site.card.site.entities.AppUser;
 import com.site.card.site.entities.CardAssociation;
 import com.site.card.site.repositories.CardAppUserRepository;
@@ -32,12 +33,14 @@ public class UserController {
         return appUserService.addUser(user);
     }
 
+
     @GetMapping(value = "/infos")
     @ResponseStatus(HttpStatus.OK)
-    public ResponseEntity<AppUser> getUserData(@RequestHeader("Authorization") String token) {
+    @CrossOrigin(exposedHeaders = "Authorization", origins = "http://localhost:5173")
+    public ResponseEntity<AppUserDto> getUserData(@RequestHeader("Authorization") String token) {
         String username = jwtService.extractUsername(token.substring(7));
-        Optional<AppUser> user = appUserService.findUserByUserName(username);
-        return user.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
+        AppUserDto appUserDto = appUserService.retrieveUserInfos(username);
+        return ResponseEntity.ok(appUserDto);
     }
 
 }
