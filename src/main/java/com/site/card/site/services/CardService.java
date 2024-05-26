@@ -32,7 +32,6 @@ public class CardService {
         List <CardDTO> cardDTOList = new ArrayList<>();
         for(Card card: cardList) {
             CardDTO cardDTO = cardEntityToCardDTO.cardEntityToCardDTO(card);
-            cardDTO.setUrl(getCardImgUrl(card.getName()));
             cardDTOList.add(cardDTO);
         }
         return cardDTOList;

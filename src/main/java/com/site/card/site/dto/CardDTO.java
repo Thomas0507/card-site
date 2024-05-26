@@ -23,7 +23,7 @@ public class CardDTO {
     @Getter @Setter
     private String url;
 
-    public CardDTO(long id, String name, String description, String affinity, String family, float energy, float hp, float price) {
+    public CardDTO(long id, String name, String description, String affinity, String family, float energy, float hp, float price, String url) {
         this.id = id;
         this.name = name;
         this.description = description;
@@ -32,6 +32,6 @@ public class CardDTO {
         this.energy = energy;
         this.hp = hp;
         this.price = price;
-        this.url = "http://localhost:8080/" + name + ".jpg";
+        this.url = url;
     }
 }

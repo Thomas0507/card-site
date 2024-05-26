@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { redirectToUrl } from '../../services/redirectService';
 	import CardPal from '$lib/CardPal.svelte';
 	import Header from '$lib/Header.svelte';
 	import { onMount, setContext } from 'svelte';
@@ -6,6 +7,9 @@
 
 	setContext('buy', { buyCard });
 
+	function sortById(cardArray: Card[]) {
+		return cardArray.sort((a, b) => a.palId - b.palId);
+	}
 	async function buyCard(card: Card) {
 		const token = sessionStorage.getItem('token');
 		const result = await fetch('http://localhost:8080/transaction/buy', {
@@ -18,7 +22,7 @@
 		});
 	}
 
-	let cardsMount: Card[] = [];
+	let cardsSorted: Card[] = [];
 
 	onMount(async () => {
 		const token = sessionStorage.getItem('token');
@@ -29,8 +33,14 @@
 				authorization: `Bearer ${token}`
 			}
 		});
-		const data = await result.json();
-		cardsMount = data;
+		if (result.status === 401) {
+			sessionStorage.clear();
+			redirectToUrl('/');
+		} else {
+			const data = await result.json();
+			let cardsMount = data;
+			cardsSorted = sortById(cardsMount);
+		}
 	});
 </script>
 
@@ -38,7 +48,7 @@
 
 <div class="card-wrapper">
 	<div class="gallerie">
-		{#each cardsMount as item}
+		{#each cardsSorted as item}
 			<CardPal card={item} />
 		{:else}
 			<!-- si 0 cartes found -->
