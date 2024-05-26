@@ -5,7 +5,7 @@
 
 <div class="navbar bg-base-100 header-wrapper">
 	<div class="flex-1">
-		<p class="btn btn-ghost text-xl" on:click={() => redirectToUrl('/')}>daisyUI</p>
+		<a href="/" class="btn btn-ghost text-xl">Pal Trading Site</a>
 	</div>
 	<div class="flex-none user-button-wrapper">
 		<ul class="menu menu-horizontal px-1">
@@ -17,11 +17,11 @@
 					</summary>
 					<ul class="p-2 bg-base-100 rounded-t-none buttons-sidebar">
 						{#if isUserConnected()}
-							<li><p on:click={() => redirectToUrl('/profile')}>Profile</p></li>
+							<li><a href="/profile">Profile</a></li>
 							<li><p on:click={() => logOut()}>Log Out</p></li>
 						{:else}
-							<li><p on:click={() => redirectToUrl('/login')}>Sign in</p></li>
-							<li><p on:click={() => redirectToUrl('/register')}>Register</p></li>
+							<li><a href="/login">Login</a></li>
+							<li><a href="/signup">Register</a></li>
 						{/if}
 					</ul>
 				</details>

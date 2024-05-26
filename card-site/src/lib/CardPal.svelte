@@ -14,14 +14,14 @@
 		<h2 class="card-title">{card.name}</h2>
 		<p>{card.description}</p>
 		<div class="card-actions justify-end">
-			<button class="btn btn-primary" on:click={() => buyCard(card)}>Buy Now</button>
+			<button class="btn btn-primary" on:click={() => buyCard(card)}>Buy for {card.price}$</button>
 		</div>
 	</div>
 </div>
 
 <style>
 	.figure-pal {
-		height: 100%;
+		height: fit-content;
 	}
 	.card-wrapper {
 		border: solid;

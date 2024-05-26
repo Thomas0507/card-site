@@ -22,7 +22,8 @@
 		justify-content: space-between;
 	}
 	.figure-pal {
-		height: 100%;
+		height: fit-content;
+
 	}
 	.card-wrapper {
 		border: solid;

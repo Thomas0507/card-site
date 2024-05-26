@@ -21,6 +21,7 @@ public class CardEntityToCardDTOImpl implements CardEntityToCardDTO {
                 card.getHp(),
                 card.getPrice(),
                 card.getRarity(),
-                card.getUrl());
+                card.getUrl(),
+                card.getPalId());
     }
 }

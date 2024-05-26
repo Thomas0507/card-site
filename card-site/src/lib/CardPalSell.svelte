@@ -1,8 +1,12 @@
 <script lang="ts">
+	import { getContext } from 'svelte';
 	import type { Card } from '../models/Card';
 	// export permet de définir l'attribut depuis un composant parent.
 	export let card: Card;
 	export let quantity: number;
+
+	const { sellCard } = getContext('sell');
+
 </script>
 
 <div class="card w-96 bg-base-100 shadow-xl card-wrapper">
@@ -15,7 +19,7 @@
 
 		<p>{card.description}</p>
 		<div class="card-actions justify-end">
-			<button class="btn btn-primary" on:click={() => buyCard(card)}>Sell</button>
+			<button class="btn btn-primary" on:click={() => sellCard(card)}>Sell for {card.price}$</button>
 		</div>
 	</div>
 </div>
@@ -25,7 +29,7 @@
 		justify-content: space-between;
 	}
 	.figure-pal {
-		height: 100%;
+		height: fit-content;
 	}
 	.card-wrapper {
 		border: solid;

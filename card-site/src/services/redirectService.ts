@@ -1,6 +1,7 @@
-import { goto } from "$app/navigation";
+import { goto } from '$app/navigation';
+import { redirect } from '@sveltejs/kit';
 
 // fonction redirection classique
 export function redirectToUrl(url: string) {
-    return goto(url);
+	window.location = url;
 }

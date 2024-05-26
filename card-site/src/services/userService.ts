@@ -11,5 +11,5 @@ export function isUserConnected(): boolean {
 
 export function logOut(): void {
 	sessionStorage.clear();
-	redirectToUrl('/');
+	window.location = '/';
 }

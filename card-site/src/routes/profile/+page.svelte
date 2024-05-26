@@ -20,9 +20,7 @@
 		// console.log(data);
 		userCards = data.cards;
 		username = data.username;
-		userCards.forEach((card) => {
-			console.log(card);
-		});
+
 	});
 </script>
 

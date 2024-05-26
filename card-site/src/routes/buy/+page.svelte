@@ -20,6 +20,7 @@
 			},
 			body: JSON.stringify(card)
 		});
+		document.getElementById('my_modal_1').showModal();
 	}
 
 	let cardsSorted: Card[] = [];
@@ -38,8 +39,7 @@
 			redirectToUrl('/');
 		} else {
 			const data = await result.json();
-			let cardsMount = data;
-			cardsSorted = sortById(cardsMount);
+			cardsSorted = data;
 		}
 	});
 </script>

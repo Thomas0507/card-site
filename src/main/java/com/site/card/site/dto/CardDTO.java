@@ -3,29 +3,21 @@ package com.site.card.site.dto;
 import lombok.Getter;
 import lombok.Setter;
 
+@Getter @Setter
 public class CardDTO {
-    @Getter @Setter
     private long id;
-    @Getter @Setter
     private String name;
-    @Getter @Setter
     private String description;
-    @Getter @Setter
     private String family;
-    @Getter @Setter
     private String affinity;
-    @Getter @Setter
     private float energy;
-    @Getter @Setter
     private float hp;
-    @Getter @Setter
     private float price;
-    @Getter @Setter
     private float rarity;
-    @Getter @Setter
     private String url;
 
-    public CardDTO(long id, String name, String description, String affinity, String family, float energy, float hp, float price, float rarity, String url) {
+    private long palId;
+    public CardDTO(long id, String name, String description, String affinity, String family, float energy, float hp, float price, float rarity, String url, long palId) {
         this.id = id;
         this.name = name;
         this.description = description;
@@ -36,5 +28,6 @@ public class CardDTO {
         this.price = price;
         this.rarity = rarity;
         this.url = url;
+        this.palId = palId;
     }
 }
