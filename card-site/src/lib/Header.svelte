@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { redirectToUrl } from '../services/redirectService';
+	import { isUserConnected } from '../services/userService';
 </script>
 
 <div class="navbar bg-base-100 header-wrapper">
@@ -15,8 +16,12 @@
 						<i data-feather="circle"></i> User
 					</summary>
 					<ul class="p-2 bg-base-100 rounded-t-none">
-						<li><p on:click={() => redirectToUrl('login')}>Sign in</p></li>
-						<li><p on:click={() => redirectToUrl('signup')}>Register</p></li>
+						{#if isUserConnected()}
+							<li><p on:click={() => redirectToUrl('/profile')}>Profile</p></li>
+						{:else}
+							<li><p on:click={() => redirectToUrl('login')}>Sign in</p></li>
+							<li><p on:click={() => redirectToUrl('signup')}>Register</p></li>
+						{/if}
 					</ul>
 				</details>
 			</li>

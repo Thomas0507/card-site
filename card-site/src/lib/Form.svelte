@@ -1,8 +1,10 @@
 <script lang="ts">
 	import { UserLogin } from './../models/UserLogin';
 	import { loginRequest } from '../services/buildRequestService';
+	import { signUpRequest } from '../services/buildRequestService';
 
-	export let postUrl: string = '';
+	export let postUrl: string = "";
+	export let isSignUp: boolean = false;
 
 	const handleSubmit = (e) => {
 		const formData = new FormData(e.target);
@@ -13,7 +15,12 @@
 	export let username: string = '';
 
 	function sendData(userLogin: UserLogin) {
-		loginRequest(userLogin, postUrl, 'POST');
+		if (isSignUp) {
+			// new account
+			signUpRequest(userLogin, postUrl, 'POST');
+		} else {
+			loginRequest(userLogin, postUrl, 'POST');
+		}
 	}
 	function isFormDirty(): boolean {
 		return false;

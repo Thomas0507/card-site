@@ -42,3 +42,12 @@ export async function loginRequest(login: Object, url: string, method: string) {
 	sessionStorage.setItem('token', data.token);
 	redirectToUrl('/profile');
 }
+
+export async function signUpRequest(login: Object, url: string, method: string) {
+	const result = await fetch(url, {
+		method: method,
+		headers: { 'Content-Type': 'application/json' },
+		body: JSON.stringify(login)
+	});
+	redirectToUrl('/');
+}
